@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Rust WebAssembly VM</title>
+    <script type="module">
+        // Import the generated JavaScript interop code
+        import init, { VirtualMachine } from './pkg/rust_wasm_vm.js';
+
+        async function runVirtualMachine() {
+            // Initialize the WebAssembly module
+            await init();
+            // Create a new instance of the virtual machine
+            window.vm = new VirtualMachine();
+        }
+
+        runVirtualMachine().catch(console.error);
+    </script>
+</head>
+
+<body>
+    <h1>Rust WebAssembly VM</h1>
+    <div>
+        <label for="input">Enter a value:</label>
+        <input type="number" id="input" min="0" />
+        <button onclick="setVMValue()">Set in Register</button>
+        <button onclick="getVMValue()">Get from Register</button>
+    </div>
+
+    <script>
+        // Store a value in register 0
+        function setVMValue() {
+            const valueInput = parseInt(input.value);
+            window.vm.store_value_in_register(0, valueInput);
+            console.log('Value set to register 0:', valueInput);
+        }
+        // Retrieve the value from register 0
+        function getVMValue() {
+            const registerValue = vm.get_register_value(0);
+            console.log('Value from register 0:', registerValue);
+            alert("Value from register 0: " + registerValue);
+        }
+    </script>
+</body>
+
+</html>
