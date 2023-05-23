@@ -37,7 +37,7 @@
         }
         // Retrieve the value from register 0
         function getVMValue() {
-            const registerValue = vm.get_register_value(0);
+            const registerValue = window.vm.get_register_value(0);
             console.log('Value from register 0:', registerValue);
             alert("Value from register 0: " + registerValue);
         }
